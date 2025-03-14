@@ -1,6 +1,7 @@
 import 'package:ecommerce/app/app_colors.dart';
 import 'package:ecommerce/core/extensions/localization_extensions.dart';
 import 'package:ecommerce/features/auth/ui/widgets/app_logo.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -43,7 +44,10 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
               SizedBox(height: 16,),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  FirebaseCrashlytics.instance.log('Enter Sign In Button');
+                  throw Exception('My Custome Error1');
+                },
                 child: Text(context.localization.signIn),
               ),
             ],
