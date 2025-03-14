@@ -1,3 +1,8 @@
 {
-    "helloWorld":"Hello World"
+    "version": "Version",
+    "welcomeBack": "Welcome Back",
+    "enterYourEmailAndPassword": "Enter your Email and Password",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign In"
 }
