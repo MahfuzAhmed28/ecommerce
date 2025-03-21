@@ -4,5 +4,15 @@
     "enterYourEmailAndPassword": "আপনার ইমেইল এবং পাসওয়ার্ড লিখুন",
     "email": "ইমেইল",
     "password": "পাসওয়ার্ড",
-    "signIn": "সাইন ইন"
+    "signIn": "সাইন ইন",
+    "registerYourAccount":"Register your account bn",
+    "getStartedWithYourDetails":"Get started with your details bn",
+    "SignUp":"Sign Up",
+    "firstName":"First name",
+    "lastName":"Last name",
+    "phone":"Phone",
+    "deliveryAddress":"Delivery address",
+    "enterYourOtpCode":"Enter your OTP code",
+    "aFourDigitCodeHasBeenSent":"A 4 digits code has been sent to your email",
+    "verify":"Verify"
 }
