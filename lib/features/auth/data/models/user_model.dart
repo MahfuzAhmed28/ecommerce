@@ -1,0 +1,42 @@
+class UserModel{
+  final String? id;
+  final String? firstName;
+  final String? lasttName;
+  final String? email;
+  final String? phone;
+  final String? avatarUrl;
+  final String city;
+
+  UserModel({
+    required this.id,
+    required this.firstName,
+    required this.lasttName,
+    required this.email,
+    required this.phone,
+    required this.avatarUrl,
+    required this.city});
+
+  factory UserModel.fromJson(Map<String,dynamic> jsonData){
+    return UserModel(
+      id: jsonData['_id'],
+      firstName: jsonData['first_name'] ?? 'Unknown',
+      lasttName: jsonData['last_name'] ?? '',
+      email: jsonData['email'],
+      phone: jsonData['phone'] ?? '',
+      avatarUrl: jsonData['avatar_email'] ?? '',
+      city: jsonData['city'] ?? '',
+    );
+  }
+
+  Map<String,dynamic> toJson(){
+    return {
+      '_id':id,
+      'first_name':firstName,
+      'last_name':lasttName,
+      'email':email,
+      'phone':pragma,
+      'avatar_url':avatarUrl,
+      'city':city,
+    };
+  }
+}

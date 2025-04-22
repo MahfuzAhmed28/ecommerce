@@ -24,7 +24,8 @@ class AppRoutes
       route=const SignUpScreen();
     }
     else if(settings.name==VerifyOtpScreen.name){
-      route=const VerifyOtpScreen();
+      final String email=settings.arguments as String;
+      route= VerifyOtpScreen(email: email);
     }
     else if(settings.name==MainBottomNavBarScreen.name){
       route =const MainBottomNavBarScreen();

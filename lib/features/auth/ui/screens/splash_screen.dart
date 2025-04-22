@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _moveToNextScreen() async{
     await Future.delayed(const Duration(seconds: 2));
-    Navigator.pushReplacementNamed(context, ReviewScreen.name);
+    Navigator.pushReplacementNamed(context, MainBottomNavBarScreen.name);
   }
   @override
   Widget build(BuildContext context) {
