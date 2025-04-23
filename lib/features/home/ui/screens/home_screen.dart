@@ -1,7 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce/app/app_colors.dart';
 import 'package:ecommerce/app/assets_path.dart';
+import 'package:ecommerce/core/widgets/centered_circular_progress_indicator.dart';
+import 'package:ecommerce/features/common/controllers/category_controller.dart';
 import 'package:ecommerce/features/common/controllers/main_bottom_nav_bar_controller.dart';
+import 'package:ecommerce/features/common/data/models/category_model.dart';
 import 'package:ecommerce/features/home/ui/widgets/app_bar_action_button.dart';
 import 'package:ecommerce/features/common/ui/widgets/category_item.dart';
 import 'package:ecommerce/features/common/ui/widgets/product_card.dart';
@@ -72,18 +75,26 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 Widget _buildCategoriesSection() {
-  return SingleChildScrollView(
-    scrollDirection: Axis.horizontal,
-    child: Row(
-      children: [
-        CategoryItem(),
-        CategoryItem(),
-        CategoryItem(),
-        CategoryItem(),
-        CategoryItem(),
-        CategoryItem(),
-      ],
-    ),
+  return GetBuilder<CategoryController>(
+    builder: (controller) {
+      if(controller.isInitialLoading){
+        return SizedBox(
+          child: CenteredCircularProgressIndicator(),
+          height: 100,
+        );
+      }
+      List<CategoryModel> list = controller.categoryList.length > 10
+          ? controller.categoryList.sublist(0, 10)
+          : controller.categoryList;
+      return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: list.map((e){
+            return CategoryItem(categoryModel: e,);
+          }).toList()
+        ),
+      );
+    }
   );
 }
   Widget _buildProductSection() {

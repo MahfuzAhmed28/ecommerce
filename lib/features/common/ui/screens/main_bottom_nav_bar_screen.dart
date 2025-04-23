@@ -1,5 +1,6 @@
 import 'package:ecommerce/app/app.dart';
 import 'package:ecommerce/features/categories/ui/screens/category_list_screen.dart';
+import 'package:ecommerce/features/common/controllers/category_controller.dart';
 import 'package:ecommerce/features/common/controllers/home_slider_controller.dart';
 import 'package:ecommerce/features/common/controllers/main_bottom_nav_bar_controller.dart';
 import 'package:ecommerce/features/home/ui/screens/home_screen.dart';
@@ -30,6 +31,7 @@ class _MainBottomNavBarScreenState extends State<MainBottomNavBarScreen> {
   void initState() {
     super.initState();
     Get.find<HomeSliderController>().getSliders();
+    Get.find<CategoryController>().getCategoryList();
   }
 
 

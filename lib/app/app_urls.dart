@@ -5,4 +5,5 @@ class AppUrls{
   static const String verifyOtpUrl='$_baseUrl/auth/verify-otp';
   static const String signInUrl='$_baseUrl/auth/login';
   static const String sliderUrl='$_baseUrl/slides';
+  static const String categoryListUrl='$_baseUrl/categories';
 }
