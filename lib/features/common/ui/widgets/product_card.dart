@@ -1,12 +1,15 @@
 import 'package:ecommerce/app/app_colors.dart';
 import 'package:ecommerce/app/assets_path.dart';
+import 'package:ecommerce/features/products/data/models/product_model.dart';
 import 'package:ecommerce/features/products/ui/screens/product_details_screen.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
-    super.key,
+    super.key, required this.productModel,
   });
+
+  final ProductModel productModel;
 
   @override
   Widget build(BuildContext context) {
@@ -29,19 +32,22 @@ class ProductCard extends StatelessWidget {
                       topLeft: Radius.circular(8),
                       topRight: Radius.circular(8),
                     ),
-                    image: DecorationImage(
-                      image: AssetImage(AssetsPath.dummyShoePng),
-                      fit: BoxFit.scaleDown,
-                    )
+                    image: productModel.photos.isNotEmpty ? DecorationImage(
+                      image: NetworkImage('${productModel.photos.first}'),
+                      fit: BoxFit.cover,
+                    ): null
                 ),
+                child: productModel.photos.isEmpty ? Icon(Icons.error):null,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Nike NT76 - new shoe collection',
+                      '${productModel.title}',
                       maxLines: 1,
+                      textAlign: TextAlign.start,
                       style: TextStyle(
                           overflow: TextOverflow.ellipsis,
                           fontWeight: FontWeight.w600
@@ -50,7 +56,7 @@ class ProductCard extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('\$100',
+                        Text('\$${productModel.currentPrice}',
                           style: TextStyle(
                             color: AppColors.themeColor,
                             fontWeight: FontWeight.w600,
@@ -59,7 +65,7 @@ class ProductCard extends StatelessWidget {
                         Wrap(
                           children: [
                             Icon(Icons.star,size: 18,color: Colors.orange,),
-                            Text('3.4'),
+                            Text('${productModel.rating}'),
                           ],
                         ),
                         Card(

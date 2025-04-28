@@ -102,11 +102,11 @@ Widget _buildCategoriesSection() {
       scrollDirection: Axis.horizontal,
       child: Row(
         children: [
+          /*ProductCard(productModel: ,),
           ProductCard(),
           ProductCard(),
           ProductCard(),
-          ProductCard(),
-          ProductCard(),
+          ProductCard(),*/
         ],
       ),
     );

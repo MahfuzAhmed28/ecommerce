@@ -53,13 +53,18 @@ class _CategoryListScreenState extends State<CategoryListScreen> {
               child: Column(
                 children: [
                   Expanded(
-                    child: GridView.builder(
-                      controller: _scrollController,
-                      itemCount: controoler.categoryList.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4,mainAxisSpacing: 16),
-                      itemBuilder: (context,index){
-                        return FittedBox(child: CategoryItem(categoryModel: controoler.categoryList[index],));
+                    child: RefreshIndicator(
+                      onRefresh: () async {
+                        controoler.refreshList();
                       },
+                      child: GridView.builder(
+                        controller: _scrollController,
+                        itemCount: controoler.categoryList.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4,mainAxisSpacing: 16),
+                        itemBuilder: (context,index){
+                          return FittedBox(child: CategoryItem(categoryModel: controoler.categoryList[index],));
+                        },
+                      ),
                     ),
                   ),
                   Visibility(
