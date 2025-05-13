@@ -1,10 +1,10 @@
 class UserModel{
-  final String? id;
-  final String? firstName;
-  final String? lasttName;
-  final String? email;
-  final String? phone;
-  final String? avatarUrl;
+  final String id;
+  final String firstName;
+  final String lasttName;
+  final String email;
+  final String phone;
+  final String avatarUrl;
   final String city;
 
   UserModel({
@@ -23,7 +23,7 @@ class UserModel{
       lasttName: jsonData['last_name'] ?? '',
       email: jsonData['email'],
       phone: jsonData['phone'] ?? '',
-      avatarUrl: jsonData['avatar_email'] ?? '',
+      avatarUrl: jsonData['avatar_url'] ?? '',
       city: jsonData['city'] ?? '',
     );
   }
@@ -34,7 +34,7 @@ class UserModel{
       'first_name':firstName,
       'last_name':lasttName,
       'email':email,
-      'phone':pragma,
+      'phone':phone,
       'avatar_url':avatarUrl,
       'city':city,
     };

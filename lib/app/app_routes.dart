@@ -36,7 +36,8 @@ class AppRoutes
       route= ProductListScreen(category: category);
     }
     else if(settings.name==ProductDetailsScreen.name){
-      route=const ProductDetailsScreen();
+      final String productId=settings.arguments as String;
+      route= ProductDetailsScreen(productId: productId,);
     }
     else if(settings.name==ReviewScreen.name){
       route=const ReviewScreen();

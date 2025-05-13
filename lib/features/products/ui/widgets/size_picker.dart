@@ -35,6 +35,7 @@ class _SizePickerState extends State<SizePicker> {
               return GestureDetector(
                 onTap: (){
                   selectedSize=size;
+                  widget.onChange(size);
                   setState(() {});
                 },
                 child: Container(

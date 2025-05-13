@@ -1,8 +1,11 @@
 import 'dart:convert';
 
-
+import 'package:get/get.dart' as getx;
+import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
+
+import '../../features/auth/ui/controllers/auth_controller.dart';
 
 
 class NetworkResponse{
@@ -55,7 +58,7 @@ class NetworkCaller{
   Future<NetworkResponse> postRequest({required String url, Map<String,dynamic>? body}) async{
     try{
       Uri uri=Uri.parse(url);
-      Map<String,String> headers={'content-type':'application/json','token':''};
+      Map<String,String> headers={'content-type':'application/json','token':getx.Get.find<AuthController>().token ?? ''};
       _logRequest(url, headers);
       Response response=await post(uri,
           headers: headers,
@@ -67,6 +70,7 @@ class NetworkCaller{
         return NetworkResponse(isSuccess: true, statusCode: response.statusCode,responseData: decodeResponse);
       }
       else if(response.statusCode==401){
+        await _clearUserData();
         return NetworkResponse(isSuccess: false, statusCode: response.statusCode,errorMessage: decodeResponse['msg'],);
       }
       else{
@@ -92,6 +96,7 @@ class NetworkCaller{
         return NetworkResponse(isSuccess: true, statusCode: response.statusCode,responseData: decodeResponse);
       }
       else if(response.statusCode==401){
+        await _clearUserData();
         return NetworkResponse(isSuccess: false, statusCode: response.statusCode);
       }
       else{
@@ -117,6 +122,7 @@ class NetworkCaller{
         return NetworkResponse(isSuccess: true, statusCode: response.statusCode,responseData: decodeResponse);
       }
       else if(response.statusCode==401){
+        await _clearUserData();
         return NetworkResponse(isSuccess: false, statusCode: response.statusCode);
       }
       else{
@@ -142,6 +148,7 @@ class NetworkCaller{
         return NetworkResponse(isSuccess: true, statusCode: response.statusCode,responseData: decodeResponse);
       }
       else if(response.statusCode==401){
+        await _clearUserData();
         return NetworkResponse(isSuccess: false, statusCode: response.statusCode);
       }
       else{
@@ -160,6 +167,9 @@ class NetworkCaller{
 
   void _logResponse(String url,Response response){
     _logger.i("Url => $url\n Status Code => ${response.statusCode}\nHeaders => ${response.headers}\nBody => ${response.body}");
+  }
+  Future<void> _clearUserData() async{
+    await getx.Get.find<AuthController>().clearUserData();
   }
 
 }

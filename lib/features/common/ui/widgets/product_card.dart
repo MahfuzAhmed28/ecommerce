@@ -15,7 +15,7 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, ProductDetailsScreen.name);
+        Navigator.pushNamed(context, ProductDetailsScreen.name,arguments: productModel.id);
       },
       child: Card(
         color: Colors.white,
@@ -33,7 +33,7 @@ class ProductCard extends StatelessWidget {
                       topRight: Radius.circular(8),
                     ),
                     image: productModel.photos.isNotEmpty ? DecorationImage(
-                      image: NetworkImage('${productModel.photos.first}'),
+                      image: NetworkImage(productModel.photos.first),
                       fit: BoxFit.cover,
                     ): null
                 ),
@@ -45,7 +45,7 @@ class ProductCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${productModel.title}',
+                      productModel.title,
                       maxLines: 1,
                       textAlign: TextAlign.start,
                       style: TextStyle(

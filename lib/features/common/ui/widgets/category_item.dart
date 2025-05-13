@@ -31,7 +31,7 @@ class CategoryItem extends StatelessWidget {
               ),
             ),
           ),
-          Text('${categoryModel.icon}',
+          Text('${categoryModel.title}',
             style: TextStyle(
               color: AppColors.themeColor,
               fontWeight: FontWeight.w500,
