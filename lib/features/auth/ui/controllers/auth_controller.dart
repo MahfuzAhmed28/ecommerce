@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController{
   final String _tokenKey='token';
-  final String _userDataKey='token';
+  final String _userDataKey='user-data';
   String? token;
   UserModel? user;
   Future<void> saveUserData(String accessToken,UserModel userModel) async {

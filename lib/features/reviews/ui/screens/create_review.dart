@@ -1,4 +1,9 @@
+import 'package:ecommerce/core/widgets/centered_circular_progress_indicator.dart';
+import 'package:ecommerce/core/widgets/show_snack_bar_message.dart';
+import 'package:ecommerce/features/reviews/data/models/create_review_model.dart';
+import 'package:ecommerce/features/reviews/ui/controllers/create_review_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CreateReview extends StatefulWidget {
   const CreateReview({super.key});
@@ -11,10 +16,12 @@ class CreateReview extends StatefulWidget {
 
 class _CreateReviewState extends State<CreateReview> {
 
+  final CreateReviewController _createReviewController=Get.find<CreateReviewController>();
   final TextEditingController _firstNameTEController=TextEditingController();
   final TextEditingController _lastNameTEController=TextEditingController();
   final TextEditingController _writeReviewTEController=TextEditingController();
   final GlobalKey<FormState> _formKey=GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,13 +76,21 @@ class _CreateReviewState extends State<CreateReview> {
                   },
                 ),
                 SizedBox(height: 20,),
-                ElevatedButton(
-                  onPressed: () {
-                    if(_formKey.currentState!.validate()){
-                      return null;
-                    }
-                  },
-                  child: Text('Submit'),
+                GetBuilder<CreateReviewController>(
+                  builder: (controller) {
+                    return Visibility(
+                      visible: controller.inProgress==false,
+                      replacement: CenteredCircularProgressIndicator(),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if(_formKey.currentState!.validate()){
+                            return null;
+                          }
+                        },
+                        child: Text('Submit'),
+                      ),
+                    );
+                  }
                 )
               ],
             ),
@@ -83,5 +98,22 @@ class _CreateReviewState extends State<CreateReview> {
         ),
       )
     );
+  }
+
+  void _onTapCreateReviewButton() async{
+    CreateReviewModel createReviewModel=CreateReviewModel(
+        firstName: _firstNameTEController.toString().trim(),
+        lastName: _lastNameTEController.toString().trim(),
+        review: _writeReviewTEController.toString().trim(),
+    );
+
+    bool isSuccess= await _createReviewController.createReview(createReviewModel);
+    if(isSuccess){
+      ShowSnackBarMessage(context, "Review Successfully added");
+    }
+    else{
+      ShowSnackBarMessage(context, _createReviewController.errorMessage!);
+    }
+
   }
 }

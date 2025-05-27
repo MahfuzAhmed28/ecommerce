@@ -1,9 +1,12 @@
+import 'package:ecommerce/features/reviews/data/models/review_model.dart';
 import 'package:flutter/material.dart';
 
 class ReviewWidget extends StatelessWidget {
   const ReviewWidget({
-    super.key,
+    super.key, required this.reviewModel,
   });
+
+  final ReviewModel reviewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +22,13 @@ class ReviewWidget extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('Mahfuz Ahmed',style: TextStyle(
+              child: Text('${reviewModel.firstName} ${reviewModel.lastName}',style: TextStyle(
                 fontWeight: FontWeight.w500,
               ),),
             ),
           ],
         ),
-        subtitle: Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy ",style: TextStyle(
+        subtitle: Text('${reviewModel.comment}',style: TextStyle(
           color: Colors.grey,
         ),),
       ),

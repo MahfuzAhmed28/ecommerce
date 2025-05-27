@@ -31,6 +31,8 @@ dependencies:
   logger: ^2.5.0
   email_validator: ^3.0.0
   shared_preferences: ^2.5.3
+  webview_flutter: ^4.10.0
+  flutter_sslcommerz: ^2.4.4
 
 
 dev_dependencies:

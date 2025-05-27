@@ -11,7 +11,7 @@ class IncrementDecrementCounterWidget extends StatefulWidget {
 }
 
 class _IncrementDecrementCounterWidgetState extends State<IncrementDecrementCounterWidget> {
-  int count=0;
+  int count=1;
   @override
   Widget build(BuildContext context) {
     return Wrap(

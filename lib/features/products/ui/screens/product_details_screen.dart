@@ -4,12 +4,14 @@ import 'package:ecommerce/core/widgets/show_snack_bar_message.dart';
 import 'package:ecommerce/features/auth/ui/controllers/auth_controller.dart';
 import 'package:ecommerce/features/auth/ui/screens/sign_in_screen.dart';
 import 'package:ecommerce/features/common/controllers/add_to_cart_contoller.dart';
+import 'package:ecommerce/features/common/controllers/add_to_wishlist_controller.dart';
 import 'package:ecommerce/features/products/ui/controllers/product_details_controller.dart';
 import 'package:ecommerce/features/products/ui/controllers/product_list_controller.dart';
 import 'package:ecommerce/features/products/ui/widgets/color_picker.dart';
 import 'package:ecommerce/features/products/ui/widgets/increment_decrement_counter_widget.dart';
 import 'package:ecommerce/features/products/ui/widgets/product_image_carousel_slider.dart';
 import 'package:ecommerce/features/products/ui/widgets/size_picker.dart';
+import 'package:ecommerce/features/reviews/ui/screens/review_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,6 +30,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   final ProductDetailsController _productDetailsController=ProductDetailsController();
   final AddToCartController _addToCartController=AddToCartController();
+  final AddToWishlistController _addToWishlistController=AddToWishlistController();
 
   String? _selectedColor;
   String? _selectedsize;
@@ -85,7 +88,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                               Text('${controller.product.rating}'),
                                             ],
                                           ),
-                                          TextButton(onPressed: () {}, child: Text('Reviews')),
+                                          TextButton(onPressed: () {
+                                            Navigator.pushNamed(context, ReviewScreen.name,arguments: widget.productId);
+                                          }, child: Text('Reviews')),
                                           Card(
                                             color: AppColors.themeColor,
                                             shape: RoundedRectangleBorder(
@@ -93,10 +98,27 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                             ),
                                             child: Padding(
                                               padding: const EdgeInsets.all(4.0),
-                                              child: Icon(
-                                                Icons.favorite_outline,
-                                                size: 16,
-                                                color: Colors.white,
+                                              child: GetBuilder(
+                                                init: _addToWishlistController,
+                                                builder: (controller) {
+                                                  return GestureDetector(
+                                                    onTap: () async{
+                                                      print(widget.productId);
+                                                      final bool isSuccess=await _addToWishlistController.addToWish(widget.productId);
+                                                      if(isSuccess){
+                                                        ShowSnackBarMessage(context, 'Added to wish');
+                                                      }
+                                                      else{
+                                                        ShowSnackBarMessage(context, _addToWishlistController.errorMessage!,true);
+                                                      }
+                                                    },
+                                                    child: Icon(
+                                                      Icons.favorite_outline,
+                                                      size: 16,
+                                                      color: Colors.white,
+                                                    ),
+                                                  );
+                                                }
                                               ),
                                             ),
                                           )

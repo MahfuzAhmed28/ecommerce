@@ -2,6 +2,7 @@ import 'package:ecommerce/features/auth/ui/screens/sign_in_screen.dart';
 import 'package:ecommerce/features/auth/ui/screens/sign_up_screen.dart';
 import 'package:ecommerce/features/auth/ui/screens/splash_screen.dart';
 import 'package:ecommerce/features/auth/ui/screens/verify_otp_screen.dart';
+import 'package:ecommerce/features/cart/ui/screens/payment_screen.dart';
 import 'package:ecommerce/features/common/data/models/category_model.dart';
 import 'package:ecommerce/features/common/ui/screens/main_bottom_nav_bar_screen.dart';
 import 'package:ecommerce/features/products/ui/screens/product_details_screen.dart';
@@ -40,10 +41,15 @@ class AppRoutes
       route= ProductDetailsScreen(productId: productId,);
     }
     else if(settings.name==ReviewScreen.name){
-      route=const ReviewScreen();
+      final String productId=settings.arguments as String;
+      route= ReviewScreen(productID: productId,);
     }
     else if(settings.name==CreateReview.name){
       route =const CreateReview();
+    }
+    else if(settings.name==PaymentScreen.name){
+      final double amount=settings.arguments as double;
+      route = PaymentScreen(paymentAmount: amount);
     }
 
     return MaterialPageRoute(

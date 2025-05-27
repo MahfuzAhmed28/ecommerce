@@ -33,7 +33,7 @@ class NetworkCaller{
       for(String key in queryParams?.keys ?? {}){
         url+='$key=${queryParams![key]}&';
       }
-      Map<String,String> headers={'token':''};
+      Map<String,String> headers={'token':getx.Get.find<AuthController>().token ?? ''};
       Uri uri=Uri.parse(url);
       _logRequest(url, headers);
       Response response=await get(uri,headers: headers);
@@ -85,7 +85,7 @@ class NetworkCaller{
   Future<NetworkResponse> putRequest({required String url, Map<String,dynamic>? body}) async{
     try{
       Uri uri=Uri.parse(url);
-      Map<String,String> headers={'content-type':'application/json','token':''};
+      Map<String,String> headers={'content-type':'application/json','token':getx.Get.find<AuthController>().token ?? ''};
       _logRequest(url, headers);
       Response response=await put(uri,
           headers: headers,
@@ -111,7 +111,7 @@ class NetworkCaller{
   Future<NetworkResponse> patchRequest({required String url, Map<String,dynamic>? body}) async{
     try{
       Uri uri=Uri.parse(url);
-      Map<String,String> headers={'content-type':'application/json','token':''};
+      Map<String,String> headers={'content-type':'application/json','token':getx.Get.find<AuthController>().token ?? ''};
       _logRequest(url, headers);
       Response response=await patch(uri,
           headers: headers,
@@ -137,7 +137,7 @@ class NetworkCaller{
   Future<NetworkResponse> deleteRequest({required String url, Map<String,dynamic>? body}) async{
     try{
       Uri uri=Uri.parse(url);
-      Map<String,String> headers={'content-type':'application/json','token':''};
+      Map<String,String> headers={'content-type':'application/json','token':getx.Get.find<AuthController>().token ?? ''};
       _logRequest(url, headers);
       Response response=await delete(uri,
           headers: headers,

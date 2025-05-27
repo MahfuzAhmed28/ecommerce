@@ -5,10 +5,12 @@ import 'package:ecommerce/core/widgets/centered_circular_progress_indicator.dart
 import 'package:ecommerce/features/common/controllers/category_controller.dart';
 import 'package:ecommerce/features/common/controllers/main_bottom_nav_bar_controller.dart';
 import 'package:ecommerce/features/common/data/models/category_model.dart';
+import 'package:ecommerce/features/home/ui/controllers/new_product_section_controller.dart';
 import 'package:ecommerce/features/home/ui/widgets/app_bar_action_button.dart';
 import 'package:ecommerce/features/common/ui/widgets/category_item.dart';
 import 'package:ecommerce/features/common/ui/widgets/product_card.dart';
 import 'package:ecommerce/features/home/ui/widgets/section_header.dart';
+import 'package:ecommerce/features/products/data/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -23,6 +25,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 seeAll: () {},
               ),
               SizedBox(height: 16,),
-              _buildProductSection(),
+              _buildNewProductSection(),
               SizedBox(height: 16,),
 
             ],
@@ -109,6 +113,30 @@ Widget _buildCategoriesSection() {
           ProductCard(),*/
         ],
       ),
+    );
+  }
+
+  Widget _buildNewProductSection() {
+    return GetBuilder<NewProductSectionController>(
+        builder: (controller) {
+          if(controller.isInitialLoading){
+            return SizedBox(
+              child: CenteredCircularProgressIndicator(),
+              height: 100,
+            );
+          }
+          List<ProductModel> list = controller.productList.length > 10
+              ? controller.productList.sublist(0, 10)
+              : controller.productList;
+          return SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+                children: list.map((e){
+                  return ProductCard(productModel: e,);
+                }).toList()
+            ),
+          );
+        }
     );
   }
 

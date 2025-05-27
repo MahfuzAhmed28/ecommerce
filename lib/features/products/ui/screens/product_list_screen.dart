@@ -23,7 +23,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
   @override
   void initState() {
     super.initState();
-    _productListController.getProductListByCategory(widget.category.id ?? '');
+    /*_productListController.getProductListByCategory(widget.category.id ?? '');*/
     _productListController.refreshList(widget.category.id ?? '');
     _scrollController.addListener(_loadData);
   }

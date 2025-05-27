@@ -1,8 +1,11 @@
 import 'package:ecommerce/app/app.dart';
+import 'package:ecommerce/features/auth/ui/screens/sign_in_screen.dart';
+import 'package:ecommerce/features/cart/ui/screens/cart_list_screen.dart';
 import 'package:ecommerce/features/categories/ui/screens/category_list_screen.dart';
 import 'package:ecommerce/features/common/controllers/category_controller.dart';
 import 'package:ecommerce/features/common/controllers/home_slider_controller.dart';
 import 'package:ecommerce/features/common/controllers/main_bottom_nav_bar_controller.dart';
+import 'package:ecommerce/features/home/ui/controllers/new_product_section_controller.dart';
 import 'package:ecommerce/features/home/ui/screens/home_screen.dart';
 import 'package:ecommerce/features/wishlist/ui/screens/wish_list_screen.dart';
 import 'package:flutter/material.dart';
@@ -23,15 +26,19 @@ class _MainBottomNavBarScreenState extends State<MainBottomNavBarScreen> {
   final List<Widget> _screens=[
     HomeScreen(),
     CategoryListScreen(),
-    HomeScreen(),
+    CartListScreen(),
     WishListScreen(),
   ];
 
   @override
   void initState() {
     super.initState();
-    Get.find<HomeSliderController>().getSliders();
-    Get.find<CategoryController>().getCategoryList();
+
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      Get.find<HomeSliderController>().getSliders();
+      Get.find<CategoryController>().getCategoryList();
+      Get.find<NewProductSectionController>().getNewProductList();
+    });
   }
 
 
@@ -47,7 +54,14 @@ class _MainBottomNavBarScreenState extends State<MainBottomNavBarScreen> {
         builder: (controller) {
           return NavigationBar(
             selectedIndex: controller.selectedIndex,
-            onDestinationSelected: controller.changeIndex,
+            onDestinationSelected: (int index){
+              if(controller.shouldNavigate(index)){
+                controller.changeIndex(index);
+              }
+              else{
+                Get.to(() => SignInScreen());
+              }
+            },
             destinations: const [
               NavigationDestination(icon: Icon(Icons.home), label: 'home'),
               NavigationDestination(icon: Icon(Icons.category), label: 'Category'),
